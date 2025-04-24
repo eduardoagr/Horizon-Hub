@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Horizon Hub (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Horizon Hub (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
