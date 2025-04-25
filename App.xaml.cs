@@ -5,7 +5,6 @@ global using CommunityToolkit.Mvvm.Input;
 
 global using HorizonHub.Controls;
 global using HorizonHub.Helpers;
-global using HorizonHub.Model;
 global using HorizonHub.View;
 global using HorizonHub.ViewModel;
 
@@ -17,12 +16,8 @@ global using Microsoft.UI.Xaml;
 global using Microsoft.UI.Xaml.Controls;
 global using Microsoft.UI.Xaml.Media;
 
-global using Syncfusion.Licensing;
-
 global using System;
-global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
-global using System.Text.Json.Serialization;
 global using System.Threading.Tasks;
 
 global using Windows.Storage;
@@ -30,8 +25,6 @@ global using Windows.Storage;
 global using WinRT.Interop;
 
 global using WinUIEx;
-
-global using Constants = HorizonHub.Helpers.Constants;
 
 namespace HorizonHub;
 
@@ -41,7 +34,6 @@ public partial class App : Application {
 
     public App() {
 
-        SyncfusionLicenseProvider.RegisterLicense(Constants.syncfusionKey);
 
         InitializeComponent();
 
