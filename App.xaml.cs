@@ -47,37 +47,37 @@ public partial class App : Application {
 
         var services = new ServiceCollection();
 
-        services.AddSingleton<MainWindowViewModel>();
+        services.AddScoped<MainWindowViewModel>();
 
-        services.AddSingleton<CustomTitleBarViewModel>();
+        services.AddScoped<CustomTitleBarViewModel>();
 
-        services.AddSingleton<CalendarPageViewModel>();
+        services.AddScoped<CalendarPageViewModel>();
 
         services.AddSingleton(sp => new InteractiveBrowserCredential(
             new InteractiveBrowserCredentialOptions {
                 ClientId = "eabe69e9-37fc-479a-976c-c699b3f3db5c",
-                TenantId = "consumers",
+                TenantId = "common",
                 RedirectUri = new Uri("http://localhost:3000"),
             }
         ));
 
-        services.AddSingleton(sp => {
+        services.AddScoped(sp => {
             var titleBarViewModel = sp.GetRequiredService<CustomTitleBarViewModel>();
             return new CustomTitleBar(titleBarViewModel);
         });
 
-        services.AddSingleton(sp => {
+        services.AddScoped(sp => {
             var mainViewModlel = sp.GetRequiredService<MainWindowViewModel>();
             return new MainWindow(mainViewModlel);
         });
 
-        services.AddSingleton(sp => {
+        services.AddScoped(sp => {
             var calendarPageViewModel = sp.GetRequiredService<CalendarPageViewModel>();
             return new CalendarPage(calendarPageViewModel);
         });
 
         // Register GraphServiceClient using the Authentication Provider
-        services.AddSingleton(sp => {
+        services.AddScoped(sp => {
             var authProvider = sp.GetRequiredService<InteractiveBrowserCredential>();
             return new GraphServiceClient(authProvider);
         });
