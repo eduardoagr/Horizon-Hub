@@ -1,26 +1,28 @@
-﻿namespace HorizonHub.ViewModel {
+﻿using Microsoft.Graph.Models;
+
+namespace HorizonHub.ViewModel {
 
     public partial class CalendarPageViewModel(GraphServiceClient graphClient) : ObservableObject {
 
-        public ObservableCollection<Microsoft.Graph.Models.Event> CalendarEvents { get; set; } = [];
+        public ObservableCollection<Event> CalendarEvents { get; set; } = [];
 
         public async Task FetchCalendarEventsAsync() {
 
-            try {
-                // Fetch calendar events from Microsoft Graph API
-                var graphEventsResponse = await graphClient.Me.Events.GetAsync();
+            //    var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString();
+            //    var endOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month,
+            //        DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month),
+            //        23, 59, 59).ToString("yyyy-MM-ddTHH:mm:ssZ");
 
-                // Clear existing collection
-                CalendarEvents.Clear();
 
-                // Populate ObservableCollection with retrieved events
-                foreach(var eventItem in graphEventsResponse!.Value!) {
+            //    var result = await graphClient.Me.CalendarView.GetAsync((requestConfiguration) => {
+            //        requestConfiguration.QueryParameters.StartDateTime = firstDayOfMonth;
+            //        requestConfiguration.QueryParameters.EndDateTime = endOfMonth;
+            //    });
 
-                    CalendarEvents.Add(eventItem);
-                }
-            } catch(Exception ex) {
-                Console.WriteLine($"Error fetching events: {ex.Message}");
-            }
+            //    foreach(var items in result!.Value!) {
+            //        CalendarEvents.Add(items);
+            //    }
+            //}
         }
     }
 }

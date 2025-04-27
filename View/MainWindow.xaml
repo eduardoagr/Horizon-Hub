@@ -90,7 +90,10 @@
                 Icon="Help"
                 Tag="AboutPage" />
         </NavigationView.MenuItems>
-        <ContentControl Content="{Binding CurrentPage}" />
+        <ContentControl
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="{Binding CurrentPage}" />
     </NavigationView>
 
 </winex:WindowEx>

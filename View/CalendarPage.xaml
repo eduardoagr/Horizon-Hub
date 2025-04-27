@@ -8,11 +8,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <TextBlock
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        FontSize="24"
-        FontWeight="Bold"
-        Text="Calendar Page" />
-
+    <Grid Background="Red">
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            Foreground="White"
+            Text="Calendar Page" />
+    </Grid>
 </Page>
