@@ -14,6 +14,11 @@ public sealed partial class MainWindow : WindowEx {
         // Restore pane state from saved settings
         NavView.IsPaneOpen = !MainWindowModel.IsCompactModeEnabled;
 
+       Activated  += (s, e) => {
+            ContentFrame?.Navigate(MainWindowModel.CurrentPageType);
+        };
+
+
         MainWindowModel.isCompactMode += (isCompact) => {
             NavView.IsPaneOpen = !isCompact;
             OptionsMenu.Hide();
@@ -29,9 +34,7 @@ public sealed partial class MainWindow : WindowEx {
 
     private void NavView_Loaded(object sender, RoutedEventArgs e) {
         NavView.SelectedItem = NavView.MenuItems[0];
-        if(ContentFrame != null) {
-            ContentFrame.Navigate(MainWindowModel.CurrentPageType);
-        }
+        ContentFrame?.Navigate(MainWindowModel.CurrentPageType);
 
     }
 }

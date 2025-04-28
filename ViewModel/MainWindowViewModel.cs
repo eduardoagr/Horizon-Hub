@@ -9,9 +9,6 @@
         public Action<bool>? isCompactMode;
 
         [ObservableProperty]
-        string selectedMenuItemTag;
-
-        [ObservableProperty]
         Type? currentPageType;
 
         [ObservableProperty]
@@ -30,18 +27,13 @@
                 IsCompactModeEnabled = false; // Default value
             }
 
-            // Set default page type
             CurrentPageType = typeof(CalendarPage);
-
         }
 
         [RelayCommand]
         void Navigate(NavigationViewSelectionChangedEventArgs args) {
-
-            if(args.SelectedItem is NavigationViewItem selectedItem && selectedItem.Tag is string tagValue) {
-                SelectedMenuItemTag = tagValue; // Update selection in ViewModel
-
-                CurrentPageType = tagValue switch {
+            if(args.SelectedItem is NavigationViewItem selectedItem && selectedItem.Tag is string pageTag) {
+                CurrentPageType = pageTag switch {
                     "CalendarPage" => typeof(CalendarPage),
                     "AccountPage" => typeof(AccountPage),
                     "AboutPage" => typeof(AboutPage),
@@ -49,6 +41,7 @@
                 };
             }
         }
+
         partial void OnIsCompactModeEnabledChanged(bool value) {
 
             isCompactMode?.Invoke(value);
