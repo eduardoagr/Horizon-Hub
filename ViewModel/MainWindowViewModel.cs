@@ -9,10 +9,13 @@
         public Action<bool>? isCompactMode;
 
         [ObservableProperty]
-        bool isCompactModeEnabled;
+        string selectedMenuItemTag;
 
         [ObservableProperty]
-        object? currentPage;
+        Type? currentPageType;
+
+        [ObservableProperty]
+        bool isCompactModeEnabled;
 
         public MainWindowViewModel(CalendarPageViewModel calendarPageViewModel) {
 
@@ -27,22 +30,25 @@
                 IsCompactModeEnabled = false; // Default value
             }
 
-            CurrentPage = new CalendarPage(_calendarPageViewModel);
+            // Set default page type
+            CurrentPageType = typeof(CalendarPage);
+
         }
 
         [RelayCommand]
         void Navigate(NavigationViewSelectionChangedEventArgs args) {
 
-            if(args.SelectedItem is NavigationViewItem selectedItem && selectedItem.Tag is string pageTag) {
-                CurrentPage = pageTag switch {
-                    "CalendarPage" => new CalendarPage(_calendarPageViewModel),
-                    "AccountPage" => new AccountPage(),
-                    "AboutPage" => new AboutPage(),
-                    _ => new CalendarPage(_calendarPageViewModel) // Default fallback
+            if(args.SelectedItem is NavigationViewItem selectedItem && selectedItem.Tag is string tagValue) {
+                SelectedMenuItemTag = tagValue; // Update selection in ViewModel
+
+                CurrentPageType = tagValue switch {
+                    "CalendarPage" => typeof(CalendarPage),
+                    "AccountPage" => typeof(AccountPage),
+                    "AboutPage" => typeof(AboutPage),
+                    _ => typeof(CalendarPage) // Default fallback
                 };
             }
         }
-
         partial void OnIsCompactModeEnabledChanged(bool value) {
 
             isCompactMode?.Invoke(value);

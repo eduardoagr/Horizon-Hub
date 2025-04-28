@@ -9,14 +9,29 @@ public sealed partial class MainWindow : WindowEx {
 
         MainWindowModel = mainViewModlel;
 
-        rootContainer.DataContext = MainWindowModel;
+        NavView.DataContext = MainWindowModel;
 
         // Restore pane state from saved settings
-        rootContainer.IsPaneOpen = !MainWindowModel.IsCompactModeEnabled;
+        NavView.IsPaneOpen = !MainWindowModel.IsCompactModeEnabled;
 
         MainWindowModel.isCompactMode += (isCompact) => {
-            rootContainer.IsPaneOpen = !isCompact;
+            NavView.IsPaneOpen = !isCompact;
             OptionsMenu.Hide();
         };
+
+        MainWindowModel.PropertyChanged += (s, e) => {
+            if(e.PropertyName == nameof(MainWindowModel.CurrentPageType)) {
+                ContentFrame.Navigate(MainWindowModel.CurrentPageType);
+            }
+        };
+
+    }
+
+    private void NavView_Loaded(object sender, RoutedEventArgs e) {
+        NavView.SelectedItem = NavView.MenuItems[0];
+        if(ContentFrame != null) {
+            ContentFrame.Navigate(MainWindowModel.CurrentPageType);
+        }
+
     }
 }
