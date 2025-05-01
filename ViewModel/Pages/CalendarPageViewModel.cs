@@ -6,6 +6,9 @@ namespace HorizonHub.ViewModel {
 
         public ObservableCollection<Event> CalendarEvents { get; set; } = [];
 
+        [ObservableProperty]
+        string hh = "dd";
+
         public async Task FetchCalendarEventsAsync() {
 
             //    var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString();

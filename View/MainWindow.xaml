@@ -9,7 +9,6 @@
 
     <NavigationView
         x:Name="NavView"
-        Loaded="NavView_Loaded"
         Margin="0,50,0,0"
         IsBackButtonVisible="Collapsed"
         IsPaneToggleButtonVisible="False"

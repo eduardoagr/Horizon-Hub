@@ -39,11 +39,15 @@ public partial class App : Application {
 
         var services = new ServiceCollection();
 
-        services.AddScoped<MainWindowViewModel>();
+        services.AddSingleton<MainWindowViewModel>();
 
-        services.AddScoped<CustomTitleBarViewModel>();
+        services.AddSingleton<CustomTitleBarViewModel>();
 
-        services.AddScoped<CalendarPageViewModel>();
+        services.AddTransient<CalendarPageViewModel>();
+        services.AddTransient<AccountPageViewModel>();
+        services.AddTransient<AboutPageViewModel>();
+
+
 
         services.AddSingleton(sp => new InteractiveBrowserCredential(
             new InteractiveBrowserCredentialOptions {
@@ -53,23 +57,33 @@ public partial class App : Application {
             }
         ));
 
-        services.AddScoped(sp => {
+        services.AddSingleton(sp => {
             var titleBarViewModel = sp.GetRequiredService<CustomTitleBarViewModel>();
             return new CustomTitleBar(titleBarViewModel);
         });
 
-        services.AddScoped(sp => {
+        services.AddSingleton(sp => {
             var mainViewModlel = sp.GetRequiredService<MainWindowViewModel>();
             return new MainWindow(mainViewModlel);
         });
 
-        services.AddScoped(sp => {
+        services.AddTransient(sp => {
             var calendarPageViewModel = sp.GetRequiredService<CalendarPageViewModel>();
             return new CalendarPage(calendarPageViewModel);
         });
 
+        services.AddTransient(sp => {
+            var accountPageViewModel = sp.GetRequiredService<AccountPageViewModel>();
+            return new AccountPage(accountPageViewModel);
+        });
+        services.AddTransient(sp => {
+            var aboutPageViewModel = sp.GetRequiredService<AboutPageViewModel>();
+            return new AboutPage(aboutPageViewModel);
+        });
+
+
         // Register GraphServiceClient using the Authentication Provider
-        services.AddScoped(sp => {
+        services.AddSingleton(sp => {
             var authProvider = sp.GetRequiredService<InteractiveBrowserCredential>();
             return new GraphServiceClient(authProvider);
         });

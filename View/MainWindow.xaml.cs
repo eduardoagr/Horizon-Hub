@@ -11,30 +11,39 @@ public sealed partial class MainWindow : WindowEx {
 
         NavView.DataContext = MainWindowModel;
 
+        NavView.SelectedItem = NavView.MenuItems[0];
+
         // Restore pane state from saved settings
         NavView.IsPaneOpen = !MainWindowModel.IsCompactModeEnabled;
 
-       Activated  += (s, e) => {
-            ContentFrame?.Navigate(MainWindowModel.CurrentPageType);
-        };
+        Activated += (s, e) => { LoadCurrentPage(); };
 
+        // Subscribe to property changes
+        SubscribeToPropertyChanges();
 
         MainWindowModel.isCompactMode += (isCompact) => {
             NavView.IsPaneOpen = !isCompact;
             OptionsMenu.Hide();
         };
+    }
+
+    private void SubscribeToPropertyChanges() {
 
         MainWindowModel.PropertyChanged += (s, e) => {
             if(e.PropertyName == nameof(MainWindowModel.CurrentPageType)) {
-                ContentFrame.Navigate(MainWindowModel.CurrentPageType);
+                LoadCurrentPage();
             }
         };
-
     }
 
-    private void NavView_Loaded(object sender, RoutedEventArgs e) {
-        NavView.SelectedItem = NavView.MenuItems[0];
-        ContentFrame?.Navigate(MainWindowModel.CurrentPageType);
+    private void LoadCurrentPage() {
 
+        var page = (Page)App.Services!.GetService(MainWindowModel!.CurrentPageType!)!;
+
+        if(page != null) {
+            // Set the ContentFrame to the created page instance
+            ContentFrame.Content = page;
+        }
     }
 }
+
