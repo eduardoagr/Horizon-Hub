@@ -13,7 +13,7 @@ namespace HorizonHub.View {
             DataContext = CalendarPageViewModel;
 
             Loaded += async (s, e) => {
-                //await CalendarPageViewModel.FetchCalendarEventsAsync();
+                await CalendarPageViewModel.FetchCalendarEventsAsync();
             };
         }
     }
