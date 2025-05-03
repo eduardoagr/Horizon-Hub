@@ -1,19 +1,74 @@
-<Page
+﻿<Page
     x:Class="HorizonHub.View.CalendarPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:HorizonHub.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:HorizonHub.Model"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Background="Red">
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="24"
-            Foreground="White"
-            Text="{x:Bind CalendarPageViewModel.Hh}" />
+    <Grid Padding="10">
+        <GridView
+            IsItemClickEnabled="True"
+            ItemsSource="{x:Bind CalendarPageViewModel.CalendarDays}">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="5" />
+                </Style>
+            </GridView.ItemContainerStyle>
+
+
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="model:CalendarDay">
+                    <Border
+                        Padding="5"
+                        BorderBrush="Silver"
+                        BorderThickness="2"
+                        CornerRadius="8">
+
+                        <Grid
+                            Width="200"
+                            Height="100"
+                            Padding="2"
+                            RowSpacing="5">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <SymbolIcon Symbol="Calendar" />
+                                <TextBlock Text="{x:Bind LongDate}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                Spacing="5"
+                                Visibility="{x:Bind HasEvent}">
+                                <SymbolIcon Symbol="Tag" />
+                                <TextBlock Text="{x:Bind EventTitle}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="2"
+                                Orientation="Horizontal"
+                                Spacing="5"
+                                Visibility="{x:Bind HasEvent}">
+                                <SymbolIcon Symbol="Clock" />
+                                <TextBlock Text="{x:Bind EventTime}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
+
+
 </Page>

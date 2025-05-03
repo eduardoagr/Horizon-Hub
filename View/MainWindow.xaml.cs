@@ -16,7 +16,8 @@ public sealed partial class MainWindow : WindowEx {
         // Restore pane state from saved settings
         NavView.IsPaneOpen = !MainWindowModel.IsCompactModeEnabled;
 
-        Activated += (s, e) => { LoadCurrentPage(); };
+        Activated += (s, e) => {
+            LoadCurrentPage(); };
 
         // Subscribe to property changes
         SubscribeToPropertyChanges();

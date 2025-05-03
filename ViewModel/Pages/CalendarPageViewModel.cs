@@ -1,31 +1,76 @@
-﻿using Microsoft.Graph.Models;
+﻿using HorizonHub.Model;
 
-namespace HorizonHub.ViewModel {
+namespace HorizonHub.ViewModel.Pages;
 
-    public partial class CalendarPageViewModel(GraphServiceClient graphClient) : ObservableObject {
+public partial class CalendarPageViewModel(GraphServiceClient graphClient) : ObservableObject {
 
-        public ObservableCollection<Event> CalendarEvents { get; set; } = [];
+    public ObservableCollection<CalendarDay> CalendarDays { get; set; } = [];
 
-        [ObservableProperty]
-        string hh = "dd";
+    //    public async Task FetchCalendarEventsAsync() {
 
-        public async Task FetchCalendarEventsAsync() {
+    //        // Correctly format start and end dates for Microsoft Graph API
+    //        var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
+    //            .ToString("yyyy-MM-ddTHH:mm:ssZ");
 
-            //    var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString();
-            //    var endOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month,
-            //        DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month),
-            //        23, 59, 59).ToString("yyyy-MM-ddTHH:mm:ssZ");
+    //        var endOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month,
+    //            DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month), 23, 59, 59)
+    //            .ToString("yyyy-MM-ddTHH:mm:ssZ");
 
+    //        // Fetch events from Microsoft Graph API
+    //        var result = await graphClient.Me.CalendarView.GetAsync(
+    //            (requestConfiguration) => {
+    //                requestConfiguration.QueryParameters.StartDateTime = firstDayOfMonth;
+    //                requestConfiguration.QueryParameters.EndDateTime = endOfMonth;
+    //            });
 
-            //    var result = await graphClient.Me.CalendarView.GetAsync((requestConfiguration) => {
-            //        requestConfiguration.QueryParameters.StartDateTime = firstDayOfMonth;
-            //        requestConfiguration.QueryParameters.EndDateTime = endOfMonth;
-            //    });
+    //        // Clear the existing calendar days
+    //        CalendarDays.Clear();
+    //        int daysInMonth = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
 
-            //    foreach(var items in result!.Value!) {
-            //        CalendarEvents.Add(items);
-            //    }
-            //}
-        }
-    }
+    //        // Populate `CalendarDays` with every full day of the month
+    //        for(var day = 1; day <= daysInMonth; day++) {
+
+    //            var dateTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, day);
+    //            var date = dateTime.ToString("yyyy-MM-dd"); // Store formatted date
+    //            var longDate = dateTime.ToString("D"); // Short date format (dd/MM/yyyy)
+
+    //            CalendarDays.Add(new CalendarDay(date, false,
+    //                string.Empty, [],
+    //                string.Empty, "No location",
+    //                false, string.Empty, string.Empty, longDate));
+    //        }
+
+    //        // Process fetched events and match them with stored calendar days
+    //        if(result?.Value != null) {
+
+    //            foreach(var item in result.Value) {
+
+    //                var eventTitle = item.Subject ?? "No title";
+    //                var organizerName = item.Organizer!.EmailAddress!.Name ?? "Unknown Organizer";
+    //                var eventDateTime = item.Start.ToDateTime().ToString("yyyy-MM-dd");
+    //                var attendeeEmails = item.Attendees?.Select(a => a.EmailAddress?.Address).ToList();
+    //                var joinUrl = item.OnlineMeeting?.JoinUrl;
+    //                var location = item.Location?.DisplayName ?? "No location";
+    //                var isOnline = item.IsOnlineMeeting.GetValueOrDefault();
+
+    //                // Find the matching calendar day based on full timestamp
+    //                var eventDay = CalendarDays.FirstOrDefault(x => x.Date == eventDateTime);
+
+    //                if(eventDay is not null) {
+
+    //                    eventDay.HasEvent = true;
+    //                    eventDay.EventTitle = eventTitle;
+    //                    eventDay.AttendeeEmails = attendeeEmails!;
+    //                    eventDay.JoinUrl = joinUrl!;
+    //                    eventDay.Location = location;
+    //                    eventDay.IsOnline = isOnline;
+    //                    eventDay.Date = eventDateTime;
+    //                    eventDay.EventTime = item.Start.ToDateTime().ToString("T");
+    //                    eventDay.OrganizerName = organizerName;
+    //                }
+
+    //            }
+    //        }
+    //    }
+    //}
 }

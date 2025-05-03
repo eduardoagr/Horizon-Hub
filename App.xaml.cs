@@ -7,6 +7,7 @@ global using HorizonHub.Controls;
 global using HorizonHub.Helpers;
 global using HorizonHub.View;
 global using HorizonHub.ViewModel;
+global using HorizonHub.ViewModel.Pages;
 
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Graph;
@@ -17,6 +18,7 @@ global using Microsoft.UI.Xaml.Controls;
 global using Microsoft.UI.Xaml.Media;
 
 global using System;
+global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Threading.Tasks;
 
