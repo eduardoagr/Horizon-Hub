@@ -13,5 +13,7 @@
 
         public const string azureCalendarToken = "AzureToken";
 
+        public const string syncfusionKey = "Mzg0Njc1M0AzMjM5MmUzMDJlMzAzYjMyMzkzYld4Q2ROb1ZQTXlSSFNFZlRpR04zdTNRNExORHlaTlJ4NU1vbzM1QzFoYjQ9";
+
     }
 }

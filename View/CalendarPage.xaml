@@ -5,70 +5,82 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:HorizonHub.Model"
+    xmlns:scheduler="using:Syncfusion.UI.Xaml.Scheduler"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Padding="10">
-        <GridView
-            IsItemClickEnabled="True"
-            ItemsSource="{x:Bind CalendarPageViewModel.CalendarDays}">
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="Margin" Value="5" />
-                </Style>
-            </GridView.ItemContainerStyle>
+    <scheduler:SfScheduler
+        x:Name="Calendar"
+        AllowViewNavigation="False"
+        ContextFlyoutOpening="Calendar_ContextFlyoutOpening"
+        AppointmentEditorOpening="Calendar_AppointmentEditorOpening"
+        ItemsSource="{x:Bind CalendarPageViewModel.CalendarEvents}"
+        ShowDatePickerButton="False">
 
+        <scheduler:SfScheduler.CellContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem
+                    Command="{x:Bind CalendarPageViewModel.CreateEventCommand}"
+                    CommandParameter="{Binding}"
+                    Text="Add"
+                    Visibility="{Binding HasEvent}">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="Add" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
 
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="model:CalendarDay">
-                    <Border
-                        Padding="5"
-                        BorderBrush="Silver"
-                        BorderThickness="2"
-                        CornerRadius="8">
+                <MenuFlyoutItem
+                    Command="{x:Bind CalendarPageViewModel.UpdateEventCommand}"
+                    CommandParameter="{Binding}"
+                    Text="Edit">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="Edit" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
 
-                        <Grid
-                            Width="200"
-                            Height="100"
-                            Padding="2"
-                            RowSpacing="5">
+                <MenuFlyoutItem
+                    Command="{x:Bind CalendarPageViewModel.DeleteEventCommand}"
+                    CommandParameter="{Binding}"
+                    Text="Delete">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="Delete" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                <MenuFlyoutItem
+                    Command="{x:Bind CalendarPageViewModel.EventDetailsCommand}"
+                    CommandParameter="{Binding}"
+                    Text="Move">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="More" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+        </scheduler:SfScheduler.CellContextFlyout>
 
-                            <StackPanel
-                                Orientation="Horizontal"
-                                Spacing="5">
-                                <SymbolIcon Symbol="Calendar" />
-                                <TextBlock Text="{x:Bind LongDate}" />
-                            </StackPanel>
+        <scheduler:SfScheduler.MonthViewSettings>
+            <scheduler:MonthViewSettings
+                AgendaViewHeight="300"
+                AppointmentDisplayMode="Indicator"
+                ShowAgendaView="True" />
+        </scheduler:SfScheduler.MonthViewSettings>
 
-                            <StackPanel
-                                Grid.Row="1"
-                                Orientation="Horizontal"
-                                Spacing="5"
-                                Visibility="{x:Bind HasEvent}">
-                                <SymbolIcon Symbol="Tag" />
-                                <TextBlock Text="{x:Bind EventTitle}" />
-                            </StackPanel>
+        <scheduler:SfScheduler.HeaderTemplate>
+            <DataTemplate>
+                <TextBlock
+                    FontSize="25"
+                    FontStyle="Italic"
+                    Foreground="#8551F2"
+                    Text="{Binding}" />
+            </DataTemplate>
+        </scheduler:SfScheduler.HeaderTemplate>
 
-                            <StackPanel
-                                Grid.Row="2"
-                                Orientation="Horizontal"
-                                Spacing="5"
-                                Visibility="{x:Bind HasEvent}">
-                                <SymbolIcon Symbol="Clock" />
-                                <TextBlock Text="{x:Bind EventTime}" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-    </Grid>
+        <scheduler:SfScheduler.AppointmentMapping>
+            <scheduler:AppointmentMapping
+                EndTime="EventEndDate"
+                StartTime="EventStartDate"
+                Subject="EventTitle" />
+        </scheduler:SfScheduler.AppointmentMapping>
 
-
+    </scheduler:SfScheduler>
 </Page>

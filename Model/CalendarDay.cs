@@ -1,12 +1,15 @@
 ﻿namespace HorizonHub.Model {
 
-    public partial class CalendarDay : ObservableObject {
+    public partial class CalendarEvent : ObservableObject {
 
         [ObservableProperty]
-        string organizerName;
+        string eventOrganizerName;
 
         [ObservableProperty]
-        private string date;
+        private DateTime eventStartDate;
+
+        [ObservableProperty]
+        private DateTime eventEndDate;
 
         [ObservableProperty]
         private bool hasEvent;
@@ -15,37 +18,21 @@
         private string eventTitle;
 
         [ObservableProperty]
-        private List<string> attendeeEmails = [];
+        private List<string> eventAttendeeEmails = [];
 
         [ObservableProperty]
-        private string joinUrl;
+        private string eventJoinUrl;
 
         [ObservableProperty]
-        private string location;
+        private string eventLocation;
 
         [ObservableProperty]
-        private bool isOnline;
+        private bool eventIsOnline;
 
         [ObservableProperty]
-        private string eventTime;
+        private string eventStartTime;
 
         [ObservableProperty]
-        private string longDate;
-
-        public CalendarDay(string date, bool hasEvent, string eventTitle, List<string> attendeeEmails,
-            string joinUrl, string location, bool isOnline, string eventTime,
-            string organizerName, string longDate) {
-
-            Date = date;
-            HasEvent = hasEvent;
-            EventTitle = eventTitle;
-            AttendeeEmails = attendeeEmails ?? [];
-            JoinUrl = joinUrl;
-            Location = location;
-            IsOnline = isOnline;
-            EventTime = eventTime;
-            this.organizerName = organizerName;
-            this.longDate = longDate;
-        }
+        private string eventEndTime;
     }
 }

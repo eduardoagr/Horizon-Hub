@@ -62,10 +62,10 @@
                             <ColumnDefinition Width="28" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Image
+                        <SymbolIcon
                             Width="28"
                             Height="28"
-                            Source="/AppIcon.ico" />
+                            Symbol="Setting" />
                         <TextBlock
                             Grid.Column="1"
                             Margin="10,0,0,0"

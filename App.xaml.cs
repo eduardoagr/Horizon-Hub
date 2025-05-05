@@ -15,10 +15,15 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Graph;
 global using Microsoft.Graph.Models;
 global using Microsoft.UI;
+global using Microsoft.UI.Input;
 global using Microsoft.UI.Windowing;
 global using Microsoft.UI.Xaml;
 global using Microsoft.UI.Xaml.Controls;
+global using Microsoft.UI.Xaml.Controls.Primitives;
+global using Microsoft.UI.Xaml.Input;
 global using Microsoft.UI.Xaml.Media;
+
+global using Syncfusion.UI.Xaml.Scheduler;
 
 global using System;
 global using System.Collections.Generic;
@@ -37,6 +42,8 @@ global using WinUIEx;
 global using Application = Microsoft.UI.Xaml.Application;
 global using Constants = HorizonHub.Helpers.Constants;
 
+using Syncfusion.Licensing;
+
 using System.IO;
 
 namespace HorizonHub;
@@ -46,6 +53,9 @@ public partial class App : Application {
     public static ServiceProvider? Services { get; private set; }
 
     public App() {
+
+        SyncfusionLicenseProvider.RegisterLicense(Constants.syncfusionKey);
+
         InitializeComponent();
 
         var services = new ServiceCollection();

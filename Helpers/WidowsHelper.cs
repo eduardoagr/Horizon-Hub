@@ -36,20 +36,28 @@
                 appWindow!.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
 
 
-                //var rootGrid = window.Content as Grid;
+                var rootGrid = window.Content as Grid;
 
-                //if(rootGrid != null) {
-                //    rootGrid.Children.Insert(0, titleBar);
-                //    window.SetTitleBar(titleBar);
-                //}
+                if(rootGrid != null) {
+                    rootGrid.Children.Insert(0, titleBar);
+                    window.SetTitleBar(titleBar);
+                }
             }
         }
 
         public static void CreateWindow(WindowEx window, string title) {
 
+            window.CenterOnScreen();
+
             window.IsResizable = false;
             ConfigureTitleBar(window, title);
             window.SystemBackdrop = new MicaBackdrop();
+
+            var appWindow = GetAppWindowFromWindow(window);
+            if(appWindow?.Presenter is OverlappedPresenter presenter) {
+                presenter.Maximize();
+            }
+
             window.Activate();
         }
     }
