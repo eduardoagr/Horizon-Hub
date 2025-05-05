@@ -3,6 +3,7 @@
 public partial class CalendarPageViewModel(GraphServiceClient graphClient, MicrosoftAuthHelper _authHelper)
     : ObservableObject {
 
+
     public ObservableCollection<CalendarEvent> CalendarEvents { get; set; } = [];
 
     public async Task FetchCalendarEventsAsync() {

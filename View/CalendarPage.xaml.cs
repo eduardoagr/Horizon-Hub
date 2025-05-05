@@ -26,8 +26,8 @@ namespace HorizonHub.View {
         private void Calendar_ContextFlyoutOpening(object sender, SchedulerContextFlyoutOpeningEventArgs e) {
 
             if(e.MenuInfo.Appointment is CalendarEvent calendarEvent) {
-                // Set DataContext at the MenuInfo level
-                e.MenuInfo.ContextFlyout.DataContext = calendarEvent;
+                // Set the DataContext to the selected CalendarEvent
+                e.ContextMenu.DataContext = calendarEvent;
             }
 
 
